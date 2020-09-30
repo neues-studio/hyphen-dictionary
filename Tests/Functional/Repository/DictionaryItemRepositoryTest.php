@@ -65,7 +65,7 @@ class DictionaryItemRepositoryTest extends FunctionalTestCase
         $this->buildServerRequest(0);
         $subject = GeneralUtility::makeInstance(DictionaryItemRepository::class);
 
-        $this->assertCount(4, $subject->findAll());
+        self::assertCount(4, $subject->findAll());
     }
 
     /**
@@ -76,7 +76,7 @@ class DictionaryItemRepositoryTest extends FunctionalTestCase
         $this->buildServerRequest(0);
         $subject = GeneralUtility::makeInstance(DictionaryItemRepository::class);
 
-        $this->assertCount(2, $subject->findAll(6));
+        self::assertCount(2, $subject->findAll(6));
     }
 
     /**
@@ -87,7 +87,7 @@ class DictionaryItemRepositoryTest extends FunctionalTestCase
         $this->buildServerRequest(1);
         $subject = GeneralUtility::makeInstance(DictionaryItemRepository::class);
 
-        $this->assertCount(2, $subject->findAll());
+        self::assertCount(2, $subject->findAll());
     }
 
     /**
@@ -98,6 +98,6 @@ class DictionaryItemRepositoryTest extends FunctionalTestCase
         $this->buildServerRequest(1);
         $subject = GeneralUtility::makeInstance(DictionaryItemRepository::class);
 
-        $this->assertCount(0, $subject->findAll(6));
+        self::assertCount(0, $subject->findAll(6));
     }
 }
