@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0" xmlns:t3="http://typo3.org/schemas/xliff">
+    <file t3:id="1600963360" source-language="en" datatype="plaintext" original="messages" date="2020-09-24T16:02:40Z" product-name="hyphen_dictionary">
+        <header/>
+        <body>
+            <trans-unit id="tx_hyphendictionary_item">
+                <source>Hyphen Dictionary Item</source>
+            </trans-unit>
+            <trans-unit id="tx_hyphendictionary_item.columns.word">
+                <source>Word</source>
+            </trans-unit>
+			<trans-unit id="tx_hyphendictionary_item.columns.word.description">
+				<source>Will be filled automatically after saving.</source>
+			</trans-unit>
+            <trans-unit id="tx_hyphendictionary_item.columns.hyphenated_word">
+                <source>Hyphenated word (case-sensitive)</source>
+            </trans-unit>
+			<trans-unit id="tx_hyphendictionary_item.columns.hyphenated_word.placeholder">
+				<source>E.g.: Pro[-]per[-]ty</source>
+			</trans-unit>
+			<trans-unit id="tx_hyphendictionary_item.columns.hyphenated_word.description">
+				<source>Use [-] as placeholder for optional word breaks.</source>
+			</trans-unit>
+        </body>
+    </file>
+</xliff>

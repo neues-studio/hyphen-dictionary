@@ -1,0 +1,52 @@
+services:
+  _defaults:
+    autoconfigure: true
+    public: false
+
+  NeuesStudio\HyphenDictionary\:
+    resource: '../Classes/*'
+
+  cache.hyphen_dictionary:
+    class: TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
+    factory:
+      - '@TYPO3\CMS\Core\Cache\CacheManager'
+      - 'getCache'
+    arguments:
+      - 'hyphen_dictionary'
+
+  cache.hyphen_dictionary_runtime:
+    class: TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
+    factory:
+      - '@TYPO3\CMS\Core\Cache\CacheManager'
+      - 'getCache'
+    arguments:
+      - 'hyphen_dictionary_runtime'
+
+  dbconnection.tx_hyphendictionary_item:
+    class: 'TYPO3\CMS\Core\Database\Connection'
+    factory:
+      - '@TYPO3\CMS\Core\Database\ConnectionPool'
+      - 'getConnectionForTable'
+    arguments:
+      - 'tx_hyphendictionary_item'
+
+  NeuesStudio\HyphenDictionary\Repository\DictionaryItemRepository:
+    public: true
+    shared: true
+    arguments:
+      - '@dbconnection.tx_hyphendictionary_item'
+      - 'tx_hyphendictionary_item'
+
+  NeuesStudio\HyphenDictionary\Service\HyphenateService:
+    public: true
+    shared: true
+    arguments:
+      - '@cache.hyphen_dictionary'
+      - '@cache.hyphen_dictionary_runtime'
+      - '@NeuesStudio\HyphenDictionary\Repository\DictionaryItemRepository'
+
+  NeuesStudio\HyphenDictionary\Hook\DataHandlerHook:
+    public: true
+    shared: true
+    arguments:
+      - '@cache.hyphen_dictionary'

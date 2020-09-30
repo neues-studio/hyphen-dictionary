@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+    <tx_hyphendictionary_item>
+        <uid>1</uid>
+        <pid>0</pid>
+        <sys_language_uid>0</sys_language_uid>
+        <word>Lorem</word>
+        <word_length>5</word_length>
+        <hyphenated_word><![CDATA[Lo&shy;rem]]></hyphenated_word>
+    </tx_hyphendictionary_item>
+    <tx_hyphendictionary_item>
+        <uid>2</uid>
+        <pid>0</pid>
+        <sys_language_uid>0</sys_language_uid>
+        <word>consetetur</word>
+        <word_length>10</word_length>
+        <hyphenated_word><![CDATA[conse&shy;tetur]]></hyphenated_word>
+    </tx_hyphendictionary_item>
+    <tx_hyphendictionary_item>
+        <uid>3</uid>
+        <pid>0</pid>
+        <sys_language_uid>0</sys_language_uid>
+        <word>sadipscing</word>
+        <word_length>10</word_length>
+        <hyphenated_word><![CDATA[sad&shy;ipsc&shy;ing]]></hyphenated_word>
+    </tx_hyphendictionary_item>
+    <tx_hyphendictionary_item>
+        <uid>4</uid>
+        <pid>0</pid>
+        <sys_language_uid>1</sys_language_uid>
+        <word>ipsum</word>
+        <word_length>5</word_length>
+        <hyphenated_word><![CDATA[ip&shy;sum]]></hyphenated_word>
+    </tx_hyphendictionary_item>
+    <tx_hyphendictionary_item>
+        <uid>5</uid>
+        <pid>0</pid>
+        <sys_language_uid>-1</sys_language_uid>
+        <word>dolor</word>
+        <word_length>5</word_length>
+        <hyphenated_word><![CDATA[do&shy;lor]]></hyphenated_word>
+    </tx_hyphendictionary_item>
+</dataset>
