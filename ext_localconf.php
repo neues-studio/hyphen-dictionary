@@ -16,12 +16,6 @@ call_user_func(function () {
             'groups' => ['system']
         ];
     }
-    if (empty($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hyphen_dictionary_runtime'])) {
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hyphen_dictionary_runtime'] = [
-            'frontend' => \TYPO3\CMS\Core\Cache\Frontend\VariableFrontend::class,
-            'backend' => \TYPO3\CMS\Core\Cache\Backend\TransientMemoryBackend::class,
-        ];
-    }
 
     $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
     $iconRegistry->registerIcon(

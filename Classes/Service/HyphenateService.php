@@ -37,8 +37,9 @@ class HyphenateService implements SingletonInterface
     private $cache;
 
     /**
-     * There is a runtime cache to avoid serialize/unserialize the dictionary items using the
-     * DatabaseBackend cache.
+     * Use core runtime cache to avoid serialize/unserialize the dictionary items for every hyphenate() method call
+     * using the Typo3DatabaseBackend cache.
+     * As the items array can grow large, this speed up the processing.
      *
      * @var FrontendInterface
      */
@@ -52,13 +53,14 @@ class HyphenateService implements SingletonInterface
     public function __construct(FrontendInterface $cache = null, FrontendInterface $runtimeCache = null, DictionaryItemRepository $repository = null)
     {
         $this->cache = $cache;
+        $this->runtimeCache = $runtimeCache;
         $this->repository = $repository;
 
         if ($this->cache === null) {
             $this->cache = GeneralUtility::makeInstance(CacheManager::class)->getCache('hyphen_dictionary');
         }
         if ($this->runtimeCache === null) {
-            $this->runtimeCache = GeneralUtility::makeInstance(CacheManager::class)->getCache('hyphen_dictionary_runtime');
+            $this->runtimeCache = GeneralUtility::makeInstance(CacheManager::class)->getCache('runtime');
         }
         if ($this->repository === null) {
             $this->repository = GeneralUtility::makeInstance(DictionaryItemRepository::class);
