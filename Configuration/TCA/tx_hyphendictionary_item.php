@@ -129,7 +129,15 @@ return [
                 'size' => 50,
                 'max' => 255,
                 'placeholder' => 'LLL:EXT:hyphen_dictionary/Resources/Private/Language/locallang_tca.xlf:tx_hyphendictionary_item.columns.hyphenated_word.placeholder',
-                'eval' => 'trim,required'
+                'eval' => 'trim,required',
+                'fieldControl' => [
+                    'setHyphenPlaceholderMarker' => [
+                        'renderType' => 'setHyphenPlaceholderMarker'
+                    ],
+                ],
+                'hyphenPlaceholder' => [
+                    'placeholder' => '[-]',
+                ],
             ],
         ],
         'word_length' => [

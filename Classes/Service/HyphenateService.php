@@ -25,6 +25,7 @@ namespace NeuesStudio\HyphenDictionary\Service;
 
 use NeuesStudio\HyphenDictionary\Repository\DictionaryItemRepository;
 use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -50,6 +51,13 @@ class HyphenateService implements SingletonInterface
      */
     private $repository;
 
+    /**
+     * HyphenateService constructor.
+     * @param FrontendInterface|null $cache
+     * @param FrontendInterface|null $runtimeCache
+     * @param DictionaryItemRepository|null $repository
+     * @throws NoSuchCacheException
+     */
     public function __construct(FrontendInterface $cache = null, FrontendInterface $runtimeCache = null, DictionaryItemRepository $repository = null)
     {
         $this->cache = $cache;

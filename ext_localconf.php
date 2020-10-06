@@ -7,6 +7,11 @@ call_user_func(function () {
             \TYPO3\CMS\Backend\Form\FormDataProvider\DatabaseEditRow::class,
         ],
     ];
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1601543996] = [
+        'nodeName' => 'setHyphenPlaceholderMarker',
+        'priority' => '30',
+        'class' => \NeuesStudio\HyphenDictionary\Form\FieldControl\SetHyphenPlaceholderMarker::class,
+    ];
 
     if (empty($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hyphen_dictionary'])) {
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hyphen_dictionary'] = [
@@ -23,6 +28,13 @@ call_user_func(function () {
         \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
         [
             'source' => 'EXT:hyphen_dictionary/Resources/Public/Icons/HyphenDictionaryItem.svg'
+        ]
+    );
+    $iconRegistry->registerIcon(
+        'add-hyphen-placeholder',
+        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+        [
+            'source' => 'EXT:hyphen_dictionary/Resources/Public/Icons/AddHyphenPlaceholder.svg'
         ]
     );
 });

@@ -21,6 +21,9 @@
 			<trans-unit id="tx_hyphendictionary_item.columns.hyphenated_word.description">
 				<source>Use [-] as placeholder for optional word breaks.</source>
 			</trans-unit>
+			<trans-unit id="field_control.set_hyphen_placeholder_marker.title">
+				<source>Add optional word break at cursor position</source>
+			</trans-unit>
         </body>
     </file>
 </xliff>
