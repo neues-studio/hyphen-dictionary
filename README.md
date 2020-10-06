@@ -22,7 +22,7 @@ with in the dictionary defined words.
 
 Install this extension with
 
-`composer reg neues-studio/hyphen-dictionary`
+`composer req neues-studio/hyphen-dictionary`
 
 ### 3.1 Creating the dictionary
 
