@@ -18,7 +18,6 @@
     }
   ],
   "require": {
-	"ext-json": "*",
     "typo3/cms-core": "^9.5 || ^10.4"
   },
   "require-dev": {
