@@ -68,7 +68,9 @@ class HyphenateService implements SingletonInterface
             $this->cache = GeneralUtility::makeInstance(CacheManager::class)->getCache('hyphen_dictionary');
         }
         if ($this->runtimeCache === null) {
-            $this->runtimeCache = GeneralUtility::makeInstance(CacheManager::class)->getCache('runtime');
+            // This should only be called in TYPO3 v9. TYPO3 v9 uses "cache_runtime" as identifier.
+            // TYPO3 v10 uses only "runtime" that in TYPO3 v10, the runtime cache should be injected by DI.
+            $this->runtimeCache = GeneralUtility::makeInstance(CacheManager::class)->getCache('cache_runtime');
         }
         if ($this->repository === null) {
             $this->repository = GeneralUtility::makeInstance(DictionaryItemRepository::class);
