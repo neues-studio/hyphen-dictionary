@@ -12,8 +12,8 @@ for header fields, we have created this extension.
 
 ## 2 What is does
 
-This extension allows editors to define a dictionary of word
-and where to put optionally word breaks.
+This extension allows editors to define a dictionary of words
+and optionally word breaks for each of this words.
 
 Using a ViewHelper in fluid templates replaces the given input
 with in the dictionary defined words.
