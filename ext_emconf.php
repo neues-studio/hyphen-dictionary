@@ -3,7 +3,7 @@
 $EM_CONF['hyphen_dictionary'] = [
     'title' => 'Hyphen Dictionary',
     'description' => 'Adds server-side hyphen for defined words.',
-    'version' => '0.2.1',
+    'version' => '0.2.2',
     'category' => 'module',
     'constraints' => [
         'depends' => [
