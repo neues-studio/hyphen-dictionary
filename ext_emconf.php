@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the "hyphen_dictionary" Extension for TYPO3 CMS.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 $EM_CONF['hyphen_dictionary'] = [
     'title' => 'Hyphen Dictionary',
     'description' => 'Adds server-side hyphen for defined words.',

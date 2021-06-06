@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the "hyphen_dictionary" Extension for TYPO3 CMS.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 call_user_func(function () {
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['hyphen_dictionary'] = \NeuesStudio\HyphenDictionary\Hook\DataHandlerHook::class;
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['formDataGroup']['tcaDatabaseRecord'][\NeuesStudio\HyphenDictionary\Form\FormDataProvider\ManipulateHyphenatedWord::class] = [
