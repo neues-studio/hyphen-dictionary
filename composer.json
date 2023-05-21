@@ -2,7 +2,7 @@
   "name": "neues-studio/hyphen-dictionary",
   "type": "typo3-cms-extension",
   "description": "Adds server-side hyphen to text using a dictionary.",
-  "homepage": "https://github.com/neues-studio/hyphen-dictionary",
+  "homepage": "https://gitlab.com/neues-studio/hyphen-dictionary",
   "license": "GPL-2.0-or-later",
   "keywords": [
     "TYPO3",
