@@ -20,7 +20,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class DataHandlerHook implements SingletonInterface
 {
     /**
-     * @var FrontendInterface
+     * @var FrontendInterface|null
      */
     private $cache;
 
@@ -33,7 +33,10 @@ class DataHandlerHook implements SingletonInterface
         }
     }
 
-    public function processDatamap_preProcessFieldArray(array &$fields, string $table, string $id, DataHandler $dataHandler)
+    /**
+     * @param array<string, mixed> $fields
+     */
+    public function processDatamap_preProcessFieldArray(array &$fields, string $table, string $id, DataHandler $dataHandler): void
     {
         if ($table === 'tx_hyphendictionary_item') {
             if (isset($fields['hyphenated_word']) && is_string($fields['hyphenated_word'])) {
@@ -44,8 +47,10 @@ class DataHandlerHook implements SingletonInterface
         }
     }
 
-    public function processDatamap_afterAllOperations(DataHandler $dataHandler)
+    public function processDatamap_afterAllOperations(DataHandler $dataHandler): void
     {
-        $this->cache->flush();
+        if ($this->cache !== null) {
+            $this->cache->flush();
+        }
     }
 }

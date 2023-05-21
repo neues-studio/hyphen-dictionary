@@ -48,6 +48,26 @@ codestyle-php:
   script:
     - .Build/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php -v --dry-run --using-cache=no --diff --diff-format=udiff
 
+php:phpstan:
+  stage: lint
+  except:
+    - master
+  image: registry.gitlab.com/codemonkey1988/docker-composer-image:2-php$PHP_VERSION
+  before_script:
+    - mkdir -p .composer/cache
+    - COMPOSER_CACHE_DIR=.composer/cache composer require typo3/cms-core="$TYPO3_VERSION"
+    - echo '<?php return [];' > .Build/Web/typo3conf/LocalConfiguration.php
+  script:
+    - composer phpstan
+  cache:
+    key: composer-cache
+    paths:
+      - .composer/cache
+  parallel:
+    matrix:
+      - TYPO3_VERSION: '^10'
+        PHP_VERSION: [ '7.4' ]
+
 unit-tests:
   extends:
     - .composer-install

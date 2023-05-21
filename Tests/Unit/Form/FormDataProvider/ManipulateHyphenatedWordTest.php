@@ -22,7 +22,7 @@ class ManipulateHyphenatedWordTest extends UnitTestCase
     /**
      * @test
      */
-    public function emptyString()
+    public function emptyString(): void
     {
         $subject = new ManipulateHyphenatedWord();
         $input = [
@@ -40,7 +40,7 @@ class ManipulateHyphenatedWordTest extends UnitTestCase
     /**
      * @test
      */
-    public function stringWithoutHyphenPlaceholders()
+    public function stringWithoutHyphenPlaceholders(): void
     {
         $subject = new ManipulateHyphenatedWord();
         $input = [

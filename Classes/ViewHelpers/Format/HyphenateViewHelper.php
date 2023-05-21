@@ -26,7 +26,7 @@ class HyphenateViewHelper extends AbstractViewHelper
      */
     protected $escapeOutput = false;
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('content', 'string', 'The content that should be hyphened', false, null);
         $this->registerArgument('minWordLength', 'int', 'Minimum word length that should be hyphened.', false, 0);

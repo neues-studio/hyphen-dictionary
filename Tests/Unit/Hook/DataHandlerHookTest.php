@@ -13,6 +13,7 @@ namespace NeuesStudio\HyphenDictionary\Tests\Unit\Service;
 
 use NeuesStudio\HyphenDictionary\Hook\DataHandlerHook;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
@@ -25,8 +26,9 @@ class DataHandlerHookTest extends UnitTestCase
     /**
      * @test
      */
-    public function saveEmptyString()
+    public function saveEmptyString(): void
     {
+        /** @var MockObject&DataHandler $dataHandler */
         $dataHandler = $this->getMockBuilder(DataHandler::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -43,8 +45,9 @@ class DataHandlerHookTest extends UnitTestCase
     /**
      * @test
      */
-    public function saveStringWithoutHyphen()
+    public function saveStringWithoutHyphen(): void
     {
+        /** @var MockObject&DataHandler $dataHandler */
         $dataHandler = $this->getMockBuilder(DataHandler::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -61,8 +64,9 @@ class DataHandlerHookTest extends UnitTestCase
     /**
      * @test
      */
-    public function saveStringWithOneHyphen()
+    public function saveStringWithOneHyphen(): void
     {
+        /** @var MockObject&DataHandler $dataHandler */
         $dataHandler = $this->getMockBuilder(DataHandler::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -80,8 +84,9 @@ class DataHandlerHookTest extends UnitTestCase
     /**
      * @test
      */
-    public function saveStringWithMultipleHyphen()
+    public function saveStringWithMultipleHyphen(): void
     {
+        /** @var MockObject&DataHandler $dataHandler */
         $dataHandler = $this->getMockBuilder(DataHandler::class)
             ->disableOriginalConstructor()
             ->getMock();

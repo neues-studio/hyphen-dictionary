@@ -30,13 +30,13 @@ class DictionaryItemRepositoryTest extends FunctionalTestCase
         'typo3conf/ext/hyphen_dictionary',
     ];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->importDataSet(__DIR__ . '/../Fixtures/tx_hyphendictionary_item.xml');
     }
 
-    protected function buildServerRequest(int $languageUid)
+    protected function buildServerRequest(int $languageUid): void
     {
         $serverRequest = new ServerRequest(new Uri('/'), 'get');
         $GLOBALS['TYPO3_REQUEST'] = $serverRequest->withAttribute(
@@ -48,7 +48,7 @@ class DictionaryItemRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAllItemsWithLanguageUidZero()
+    public function getAllItemsWithLanguageUidZero(): void
     {
         $this->buildServerRequest(0);
         $subject = GeneralUtility::makeInstance(DictionaryItemRepository::class);
@@ -59,7 +59,7 @@ class DictionaryItemRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAllItemsWithLanguageUidZeroWidthAtLeastSixCharacters()
+    public function getAllItemsWithLanguageUidZeroWidthAtLeastSixCharacters(): void
     {
         $this->buildServerRequest(0);
         $subject = GeneralUtility::makeInstance(DictionaryItemRepository::class);
@@ -70,7 +70,7 @@ class DictionaryItemRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAllItemsWithLanguageUidOne()
+    public function getAllItemsWithLanguageUidOne(): void
     {
         $this->buildServerRequest(1);
         $subject = GeneralUtility::makeInstance(DictionaryItemRepository::class);
@@ -81,7 +81,7 @@ class DictionaryItemRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAllItemsWithLanguageUidOneAtLeastSixCharacters()
+    public function getAllItemsWithLanguageUidOneAtLeastSixCharacters(): void
     {
         $this->buildServerRequest(1);
         $subject = GeneralUtility::makeInstance(DictionaryItemRepository::class);

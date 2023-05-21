@@ -40,29 +40,25 @@ class HyphenateService implements SingletonInterface
     private $repository;
 
     /**
-     * HyphenateService constructor.
-     * @param FrontendInterface|null $cache
-     * @param FrontendInterface|null $runtimeCache
-     * @param DictionaryItemRepository|null $repository
      * @throws NoSuchCacheException
      */
     public function __construct(FrontendInterface $cache = null, FrontendInterface $runtimeCache = null, DictionaryItemRepository $repository = null)
     {
+        if ($cache === null) {
+            $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache('hyphen_dictionary');
+        }
+        if ($runtimeCache === null) {
+            // This should only be called in TYPO3 v9. TYPO3 v9 uses "cache_runtime" as identifier.
+            // TYPO3 v10 uses only "runtime" that in TYPO3 v10, the runtime cache should be injected by DI.
+            $runtimeCache = GeneralUtility::makeInstance(CacheManager::class)->getCache('cache_runtime');
+        }
+        if ($repository === null) {
+            $repository = GeneralUtility::makeInstance(DictionaryItemRepository::class);
+        }
+
         $this->cache = $cache;
         $this->runtimeCache = $runtimeCache;
         $this->repository = $repository;
-
-        if ($this->cache === null) {
-            $this->cache = GeneralUtility::makeInstance(CacheManager::class)->getCache('hyphen_dictionary');
-        }
-        if ($this->runtimeCache === null) {
-            // This should only be called in TYPO3 v9. TYPO3 v9 uses "cache_runtime" as identifier.
-            // TYPO3 v10 uses only "runtime" that in TYPO3 v10, the runtime cache should be injected by DI.
-            $this->runtimeCache = GeneralUtility::makeInstance(CacheManager::class)->getCache('cache_runtime');
-        }
-        if ($this->repository === null) {
-            $this->repository = GeneralUtility::makeInstance(DictionaryItemRepository::class);
-        }
     }
 
     public function hyphenate(string $content, int $minLength = 0): string
@@ -76,6 +72,9 @@ class HyphenateService implements SingletonInterface
         return str_replace(array_keys($items), $items, $content);
     }
 
+    /**
+     * @return array<int, array<string, string>>
+     */
     protected function getDictionaryItems(int $minLength): array
     {
         $cacheIdentifier = 'min_word_length_' . $minLength;
@@ -93,8 +92,7 @@ class HyphenateService implements SingletonInterface
     }
 
     /**
-     * @param string $cacheIdentifier
-     * @return mixed
+     * @return array<int, array<string, string>>
      * @throws NoCacheEntryException
      */
     private function getDictionaryItemsFromCache(string $cacheIdentifier): array

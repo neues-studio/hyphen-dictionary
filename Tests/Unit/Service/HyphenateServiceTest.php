@@ -13,6 +13,7 @@ namespace NeuesStudio\HyphenDictionary\Tests\Unit\Service;
 
 use NeuesStudio\HyphenDictionary\Service\HyphenateService;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Test class for \NeuesStudio\HyphenDictionary\Service\HyphenateService
@@ -22,8 +23,9 @@ class HyphenateServiceTest extends UnitTestCase
     /**
      * @test
      */
-    public function hyphenateWithNoDictionaryItems()
+    public function hyphenateWithNoDictionaryItems(): void
     {
+        /** @var MockObject&HyphenateService $subject */
         $subject = $this->getMockBuilder(HyphenateService::class)
             ->disableOriginalConstructor()
             ->setMethods(['getDictionaryItems'])
@@ -39,12 +41,13 @@ class HyphenateServiceTest extends UnitTestCase
     /**
      * @test
      */
-    public function hyphenateWithDictionaryItems()
+    public function hyphenateWithDictionaryItems(): void
     {
         $dictionary = [
             'consetetur' => 'conse&shy;tetur',
             'sadipscing' => 'sad&shy;ipsc&shy;ing'
         ];
+        /** @var MockObject&HyphenateService $subject */
         $subject = $this->getMockBuilder(HyphenateService::class)
             ->disableOriginalConstructor()
             ->setMethods(['getDictionaryItems'])

@@ -27,7 +27,7 @@ class LanguageRestriction implements QueryRestrictionInterface
      * Main method to build expressions for given tables
      * Evaluates the ctrl/languageField flag of the table and adds the according restriction if set
      *
-     * @param array $queriedTables Array of tables, where array key is table alias and value is a table name
+     * @param array<string, array<string, string>> $queriedTables Array of tables, where array key is table alias and value is a table name
      * @param ExpressionBuilder $expressionBuilder Expression builder instance to add restrictions with
      * @return CompositeExpression The result of query builder expression(s)
      */
@@ -39,10 +39,12 @@ class LanguageRestriction implements QueryRestrictionInterface
             if (!empty($languageFieldName)) {
                 try {
                     $language = $this->getLanguage();
-                    $constraints[] = $expressionBuilder->in(
-                        $tableAlias . '.' . $languageFieldName,
-                        [-1, $language->getLanguageId()]
-                    );
+                    if ($language !== null) {
+                        $constraints[] = $expressionBuilder->in(
+                            $tableAlias . '.' . $languageFieldName,
+                            [-1, $language->getLanguageId()]
+                        );
+                    }
                 } catch (NoSiteLanguageException $e) {
                 }
             }
