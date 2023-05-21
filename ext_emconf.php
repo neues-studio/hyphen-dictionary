@@ -19,7 +19,7 @@ $EM_CONF['hyphen_dictionary'] = [
         'conflicts' => [],
         'suggests' => [],
     ],
-    'state' => 'beta',
+    'state' => 'stable',
     'clearCacheOnLoad' => true,
     'author' => 'Tim Schreiner',
     'author_email' => 'team@neues.studio',
