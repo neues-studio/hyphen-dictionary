@@ -22,6 +22,6 @@ $EM_CONF['hyphen_dictionary'] = [
     'state' => 'stable',
     'clearCacheOnLoad' => true,
     'author' => 'Tim Schreiner',
-    'author_email' => 'team@neues.studio',
-    'author_company' => 'Neues Studio',
+    'author_email' => 'dev@tim-schreiner.de',
+    'author_company' => '',
 ];
