@@ -2,7 +2,6 @@
 /composer.lock
 /.php_cs.cache
 /.Build
-/.ddev
 /var
 /config
 /Documentation-GENERATED-temp
