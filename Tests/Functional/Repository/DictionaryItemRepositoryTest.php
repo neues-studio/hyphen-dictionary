@@ -12,19 +12,19 @@ declare(strict_types=1);
 namespace NeuesStudio\HyphenDictionary\Tests\Functional\Repository;
 
 use NeuesStudio\HyphenDictionary\Repository\DictionaryItemRepository;
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Http\Uri;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
- * Test class for \NeuesStudio\HyphenDictionary\Repository\DictionaryItemRepository
+ * @covers \NeuesStudio\HyphenDictionary\Repository\DictionaryItemRepository
  */
 class DictionaryItemRepositoryTest extends FunctionalTestCase
 {
     /**
-     * @var string[]
+     * @var non-empty-string[]
      */
     protected $testExtensionsToLoad = [
         'typo3conf/ext/hyphen_dictionary',
@@ -53,7 +53,7 @@ class DictionaryItemRepositoryTest extends FunctionalTestCase
         $this->buildServerRequest(0);
         $subject = GeneralUtility::makeInstance(DictionaryItemRepository::class);
 
-        self::assertCount(4, $subject->findAll());
+        self::assertCount(4, iterator_to_array($subject->findAll()));
     }
 
     /**
@@ -64,7 +64,7 @@ class DictionaryItemRepositoryTest extends FunctionalTestCase
         $this->buildServerRequest(0);
         $subject = GeneralUtility::makeInstance(DictionaryItemRepository::class);
 
-        self::assertCount(2, $subject->findAll(6));
+        self::assertCount(2, iterator_to_array($subject->findAll(6)));
     }
 
     /**
@@ -75,7 +75,7 @@ class DictionaryItemRepositoryTest extends FunctionalTestCase
         $this->buildServerRequest(1);
         $subject = GeneralUtility::makeInstance(DictionaryItemRepository::class);
 
-        self::assertCount(2, $subject->findAll());
+        self::assertCount(2, iterator_to_array($subject->findAll()));
     }
 
     /**
@@ -86,6 +86,6 @@ class DictionaryItemRepositoryTest extends FunctionalTestCase
         $this->buildServerRequest(1);
         $subject = GeneralUtility::makeInstance(DictionaryItemRepository::class);
 
-        self::assertCount(0, $subject->findAll(6));
+        self::assertCount(0, iterator_to_array($subject->findAll(6)));
     }
 }

@@ -12,17 +12,22 @@ declare(strict_types=1);
 namespace NeuesStudio\HyphenDictionary\Tests\Unit\Service;
 
 use NeuesStudio\HyphenDictionary\Hook\DataHandlerHook;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
- * Test class for \NeuesStudio\HyphenDictionary\Hook\DataHandlerHook
+ * @covers \NeuesStudio\HyphenDictionary\Hook\DataHandlerHook
  */
 class DataHandlerHookTest extends UnitTestCase
 {
+    /**
+     * @var bool
+     */
+    protected $resetSingletonInstances = true;
+
     /**
      * @test
      */

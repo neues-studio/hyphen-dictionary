@@ -12,11 +12,11 @@ declare(strict_types=1);
 namespace NeuesStudio\HyphenDictionary\Tests\Unit\Service;
 
 use NeuesStudio\HyphenDictionary\Service\HyphenateService;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
- * Test class for \NeuesStudio\HyphenDictionary\Service\HyphenateService
+ * @covers \NeuesStudio\HyphenDictionary\Service\HyphenateService
  */
 class HyphenateServiceTest extends UnitTestCase
 {

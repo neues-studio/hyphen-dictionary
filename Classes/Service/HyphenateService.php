@@ -13,9 +13,8 @@ namespace NeuesStudio\HyphenDictionary\Service;
 
 use NeuesStudio\HyphenDictionary\Repository\DictionaryItemRepository;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
-use TYPO3\CMS\Core\SingletonInterface;
 
-class HyphenateService implements SingletonInterface
+class HyphenateService
 {
     private FrontendInterface $cache;
 
