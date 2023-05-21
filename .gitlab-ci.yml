@@ -37,7 +37,7 @@ lint-php:
     - find . -name \*.php ! -path "./.Build/*" -exec php -d display_errors=stderr -l {} > /dev/null \;
   parallel:
     matrix:
-      - PHP_VERSION: ['7.4', '8.0']
+      - PHP_VERSION: ['7.4', '8.0', '8.1', '8.2']
 
 codestyle-php:
   stage: lint
@@ -53,7 +53,6 @@ codestyle-php:
     key: composer-cache
     paths:
       - .composer/cache
-
 
 php:phpstan:
   stage: lint
