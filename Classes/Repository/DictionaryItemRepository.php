@@ -14,28 +14,17 @@ namespace NeuesStudio\HyphenDictionary\Repository;
 use Doctrine\DBAL\Driver\Result;
 use NeuesStudio\HyphenDictionary\Database\Query\Restriction\LanguageRestriction;
 use TYPO3\CMS\Core\Database\Connection;
-use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class DictionaryItemRepository implements SingletonInterface
 {
-    /**
-     * @var Connection
-     */
-    protected $connection;
+    protected Connection $connection;
 
-    /**
-     * @var string
-     */
-    protected $table;
+    protected string $table;
 
-    public function __construct(Connection $connection = null, string $table = 'tx_hyphendictionary_item')
+    public function __construct(Connection $connection, string $table = 'tx_hyphendictionary_item')
     {
-        if ($connection === null) {
-            $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($this->table);
-        }
-
         $this->connection = $connection;
         $this->table = $table;
     }

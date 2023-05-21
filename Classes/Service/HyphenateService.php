@@ -12,50 +12,24 @@ declare(strict_types=1);
 namespace NeuesStudio\HyphenDictionary\Service;
 
 use NeuesStudio\HyphenDictionary\Repository\DictionaryItemRepository;
-use TYPO3\CMS\Core\Cache\CacheManager;
-use TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class HyphenateService implements SingletonInterface
 {
-    /**
-     * @var FrontendInterface
-     */
-    private $cache;
+    private FrontendInterface $cache;
 
     /**
      * Use core runtime cache to avoid serialize/unserialize the dictionary items for every hyphenate() method call
      * using the Typo3DatabaseBackend cache.
      * As the items array can grow large, this speed up the processing.
-     *
-     * @var FrontendInterface
      */
-    private $runtimeCache;
+    private FrontendInterface $runtimeCache;
 
-    /**
-     * @var DictionaryItemRepository
-     */
-    private $repository;
+    private DictionaryItemRepository $repository;
 
-    /**
-     * @throws NoSuchCacheException
-     */
-    public function __construct(FrontendInterface $cache = null, FrontendInterface $runtimeCache = null, DictionaryItemRepository $repository = null)
+    public function __construct(FrontendInterface $cache, FrontendInterface $runtimeCache, DictionaryItemRepository $repository)
     {
-        if ($cache === null) {
-            $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache('hyphen_dictionary');
-        }
-        if ($runtimeCache === null) {
-            // This should only be called in TYPO3 v9. TYPO3 v9 uses "cache_runtime" as identifier.
-            // TYPO3 v10 uses only "runtime" that in TYPO3 v10, the runtime cache should be injected by DI.
-            $runtimeCache = GeneralUtility::makeInstance(CacheManager::class)->getCache('cache_runtime');
-        }
-        if ($repository === null) {
-            $repository = GeneralUtility::makeInstance(DictionaryItemRepository::class);
-        }
-
         $this->cache = $cache;
         $this->runtimeCache = $runtimeCache;
         $this->repository = $repository;
