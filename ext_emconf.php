@@ -14,7 +14,7 @@ $EM_CONF['hyphen_dictionary'] = [
     'category' => 'module',
     'constraints' => [
         'depends' => [
-            'typo3' => '9.5.0-10.4.99',
+            'typo3' => '10.4.0-10.4.99',
         ],
         'conflicts' => [],
         'suggests' => [],
