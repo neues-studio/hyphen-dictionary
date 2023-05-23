@@ -11,29 +11,22 @@ declare(strict_types=1);
 
 namespace NeuesStudio\HyphenDictionary\Hook;
 
-use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
-use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class DataHandlerHook implements SingletonInterface
+class DataHandlerHook
 {
-    /**
-     * @var FrontendInterface
-     */
-    private $cache;
+    private FrontendInterface $cache;
 
-    public function __construct(FrontendInterface $cache = null)
+    public function __construct(FrontendInterface $cache)
     {
         $this->cache = $cache;
-
-        if ($this->cache === null) {
-            $this->cache = GeneralUtility::makeInstance(CacheManager::class)->getCache('hyphen_dictionary');
-        }
     }
 
-    public function processDatamap_preProcessFieldArray(array &$fields, string $table, string $id, DataHandler $dataHandler)
+    /**
+     * @param array<string, mixed> $fields
+     */
+    public function processDatamap_preProcessFieldArray(array &$fields, string $table, string $id, DataHandler $dataHandler): void
     {
         if ($table === 'tx_hyphendictionary_item') {
             if (isset($fields['hyphenated_word']) && is_string($fields['hyphenated_word'])) {
@@ -44,7 +37,7 @@ class DataHandlerHook implements SingletonInterface
         }
     }
 
-    public function processDatamap_afterAllOperations(DataHandler $dataHandler)
+    public function processDatamap_afterAllOperations(DataHandler $dataHandler): void
     {
         $this->cache->flush();
     }

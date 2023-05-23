@@ -31,7 +31,6 @@ services:
 
   NeuesStudio\HyphenDictionary\Service\HyphenateService:
     public: true
-    shared: true
     arguments:
       - '@cache.hyphen_dictionary'
       - '@cache.runtime'
@@ -39,6 +38,5 @@ services:
 
   NeuesStudio\HyphenDictionary\Hook\DataHandlerHook:
     public: true
-    shared: true
     arguments:
       - '@cache.hyphen_dictionary'

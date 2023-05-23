@@ -12,17 +12,17 @@ declare(strict_types=1);
 namespace NeuesStudio\HyphenDictionary\Tests\Unit\Service;
 
 use NeuesStudio\HyphenDictionary\Form\FormDataProvider\ManipulateHyphenatedWord;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
- * Test class for \NeuesStudio\HyphenDictionary\Form\FormDataProvider\ManipulateHyphenatedWord
+ * @covers \NeuesStudio\HyphenDictionary\Form\FormDataProvider\ManipulateHyphenatedWord
  */
 class ManipulateHyphenatedWordTest extends UnitTestCase
 {
     /**
      * @test
      */
-    public function emptyString()
+    public function emptyString(): void
     {
         $subject = new ManipulateHyphenatedWord();
         $input = [
@@ -40,7 +40,7 @@ class ManipulateHyphenatedWordTest extends UnitTestCase
     /**
      * @test
      */
-    public function stringWithoutHyphenPlaceholders()
+    public function stringWithoutHyphenPlaceholders(): void
     {
         $subject = new ManipulateHyphenatedWord();
         $input = [

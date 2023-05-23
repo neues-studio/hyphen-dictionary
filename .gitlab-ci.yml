@@ -37,46 +37,94 @@ lint-php:
     - find . -name \*.php ! -path "./.Build/*" -exec php -d display_errors=stderr -l {} > /dev/null \;
   parallel:
     matrix:
-      - PHP_VERSION: ['7.2', '7.3', '7.4', '8.0']
+      - PHP_VERSION: ['7.4', '8.0', '8.1', '8.2']
 
 codestyle-php:
-  extends: .composer-install
   stage: lint
   except:
     - master
   image: registry.gitlab.com/codemonkey1988/docker-composer-image:2-php7.4
+  before_script:
+    - mkdir -p .composer/cache
+    - COMPOSER_CACHE_DIR=.composer/cache composer install
   script:
-    - .Build/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php -v --dry-run --using-cache=no --diff --diff-format=udiff
+    - composer phpcsfixer
+  cache:
+    key: composer-cache
+    paths:
+      - .composer/cache
+
+php:phpstan:
+  stage: lint
+  except:
+    - master
+  image: registry.gitlab.com/codemonkey1988/docker-composer-image:2-php$PHP_VERSION
+  before_script:
+    - mkdir -p .composer/cache
+    - COMPOSER_CACHE_DIR=.composer/cache composer require typo3/cms-core="$TYPO3_VERSION"
+    - echo '<?php return [];' > .Build/Web/typo3conf/LocalConfiguration.php
+  script:
+    - composer phpstan
+  cache:
+    key: composer-cache
+    paths:
+      - .composer/cache
+  parallel:
+    matrix:
+      - TYPO3_VERSION: '^10'
+        PHP_VERSION: [ '7.4' ]
 
 unit-tests:
-  extends:
-    - .composer-install
-    - .install-typo3
   stage: test
   except:
     - master
   image: registry.gitlab.com/codemonkey1988/docker-composer-image:2-php$PHP_VERSION
+  variables:
+    TYPO3_VERSION: ^10.4
+    PHP_VERSION: "7.4"
+  before_script:
+    - docker-php-ext-enable xdebug
+    - echo -e "xdebug.mode=coverage" > /usr/local/etc/php/conf.d/xdebug_coverage.ini
+    - mkdir -p .composer/cache
+    - COMPOSER_CACHE_DIR=.composer/cache composer require typo3/cms-core="$TYPO3_VERSION "
+    - echo '<?php return [];' > .Build/Web/typo3conf/LocalConfiguration.php
   script:
-    - .Build/bin/phpunit --colors -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit/
+    - |
+      .Build/bin/phpunit \
+        -c UnitTests.xml \
+        --colors \
+        --testdox \
+        --coverage-html build/reports/coverage-unit-html/ \
+        --coverage-cobertura build/reports/cobertura-unit.xml \
+        --coverage-clover build/reports/clover-unit.xml
   parallel:
     matrix:
-      - TYPO3_VERSION: 'dev-master'
-        PHP_VERSION: [ '7.4' ]
+      - TYPO3_VERSION: '^11.5'
+        PHP_VERSION: [ '7.4', '8.0', '8.1', '8.2' ]
       - TYPO3_VERSION: '^10.4'
-        PHP_VERSION: [ '7.2', '7.3', '7.4' ]
-      - TYPO3_VERSION: '^9.5'
-        PHP_VERSION: [ '7.2', '7.3', '7.4' ]
+        PHP_VERSION: [ '7.4' ]
+  cache:
+    key: composer-cache
+    paths:
+      - .composer/cache
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - build/reports/
+    when: always
+    reports:
+      junit: build/reports/phpunit-unit.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: build/reports/cobertura-unit.xml
 
 functional-tests:
-  extends:
-    - .composer-install
-    - .install-typo3
   stage: test
   except:
     - master
   image: registry.gitlab.com/codemonkey1988/docker-composer-image:2-php$PHP_VERSION
   services:
-    - mysql:5.7
+    - mysql:8.0
   variables:
     MYSQL_ROOT_PASSWORD: root
     typo3DatabaseHost: mysql
@@ -84,16 +132,43 @@ functional-tests:
     typo3DatabasePassword: $MYSQL_ROOT_PASSWORD
     typo3DatabaseName: typo3_test
     typo3DatabaseDriver: mysqli
+  before_script:
+    - docker-php-ext-install mysqli
+    - docker-php-ext-enable xdebug
+    - echo -e "xdebug.mode=coverage" > /usr/local/etc/php/conf.d/xdebug_coverage.ini
+    - mkdir -p .composer/cache
+    - COMPOSER_CACHE_DIR=.composer/cache composer require typo3/cms-core="$TYPO3_VERSION"
+    - echo '<?php return [];' > .Build/Web/typo3conf/LocalConfiguration.php
   script:
-    - .Build/bin/phpunit --colors -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml Tests/Functional/
+    - |
+      .Build/bin/phpunit \
+        -c FunctionalTests.xml \
+        --colors \
+        --testdox \
+        --coverage-html build/reports/coverage-functional-html/ \
+        --coverage-cobertura build/reports/cobertura-functional.xml \
+        --coverage-clover build/reports/clover-functional.xml
   parallel:
     matrix:
-      - TYPO3_VERSION: 'dev-master'
-        PHP_VERSION: [ '7.4' ]
+      - TYPO3_VERSION: '^11.5'
+        PHP_VERSION: [ '7.4', '8.0', '8.1', '8.2' ]
       - TYPO3_VERSION: '^10.4'
-        PHP_VERSION: [ '7.2', '7.3', '7.4' ]
-      - TYPO3_VERSION: '^9.5'
-        PHP_VERSION: [ '7.2', '7.3', '7.4' ]
+        PHP_VERSION: [ '7.4' ]
+  cache:
+    key: composer-cache
+    paths:
+      - .composer/cache
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - build/reports/
+    when: always
+    reports:
+      junit: build/reports/phpunit-functional.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: build/reports/cobertura-functional.xml
+
 
 mirror:
   stage: mirror

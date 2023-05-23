@@ -12,31 +12,31 @@ declare(strict_types=1);
 namespace NeuesStudio\HyphenDictionary\Tests\Functional\Repository;
 
 use NeuesStudio\HyphenDictionary\Repository\DictionaryItemRepository;
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Http\Uri;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
- * Test class for \NeuesStudio\HyphenDictionary\Repository\DictionaryItemRepository
+ * @covers \NeuesStudio\HyphenDictionary\Repository\DictionaryItemRepository
  */
 class DictionaryItemRepositoryTest extends FunctionalTestCase
 {
     /**
-     * @var string[]
+     * @var non-empty-string[]
      */
     protected $testExtensionsToLoad = [
         'typo3conf/ext/hyphen_dictionary',
     ];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->importDataSet(__DIR__ . '/../Fixtures/tx_hyphendictionary_item.xml');
     }
 
-    protected function buildServerRequest(int $languageUid)
+    protected function buildServerRequest(int $languageUid): void
     {
         $serverRequest = new ServerRequest(new Uri('/'), 'get');
         $GLOBALS['TYPO3_REQUEST'] = $serverRequest->withAttribute(
@@ -48,44 +48,44 @@ class DictionaryItemRepositoryTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function getAllItemsWithLanguageUidZero()
+    public function getAllItemsWithLanguageUidZero(): void
     {
         $this->buildServerRequest(0);
         $subject = GeneralUtility::makeInstance(DictionaryItemRepository::class);
 
-        self::assertCount(4, $subject->findAll());
+        self::assertCount(4, iterator_to_array($subject->findAll()));
     }
 
     /**
      * @test
      */
-    public function getAllItemsWithLanguageUidZeroWidthAtLeastSixCharacters()
+    public function getAllItemsWithLanguageUidZeroWidthAtLeastSixCharacters(): void
     {
         $this->buildServerRequest(0);
         $subject = GeneralUtility::makeInstance(DictionaryItemRepository::class);
 
-        self::assertCount(2, $subject->findAll(6));
+        self::assertCount(2, iterator_to_array($subject->findAll(6)));
     }
 
     /**
      * @test
      */
-    public function getAllItemsWithLanguageUidOne()
+    public function getAllItemsWithLanguageUidOne(): void
     {
         $this->buildServerRequest(1);
         $subject = GeneralUtility::makeInstance(DictionaryItemRepository::class);
 
-        self::assertCount(2, $subject->findAll());
+        self::assertCount(2, iterator_to_array($subject->findAll()));
     }
 
     /**
      * @test
      */
-    public function getAllItemsWithLanguageUidOneAtLeastSixCharacters()
+    public function getAllItemsWithLanguageUidOneAtLeastSixCharacters(): void
     {
         $this->buildServerRequest(1);
         $subject = GeneralUtility::makeInstance(DictionaryItemRepository::class);
 
-        self::assertCount(0, $subject->findAll(6));
+        self::assertCount(0, iterator_to_array($subject->findAll(6)));
     }
 }

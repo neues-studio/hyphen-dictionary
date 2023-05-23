@@ -15,7 +15,19 @@ use TYPO3\CMS\Backend\Form\FormDataProviderInterface;
 
 class ManipulateHyphenatedWord implements FormDataProviderInterface
 {
-    public function addData(array $result)
+    /**
+     * @param array{
+     *     command: string,
+     *     tableName: string,
+     *     databaseRow: array{hyphenated_word: string}
+     * } $result
+     * @return array{
+     *     command: string,
+     *     tableName: string,
+     *     databaseRow: array{hyphenated_word: string}
+     * }
+     */
+    public function addData(array $result): array
     {
         if ($result['command'] === 'edit'
             && $result['tableName'] === 'tx_hyphendictionary_item'

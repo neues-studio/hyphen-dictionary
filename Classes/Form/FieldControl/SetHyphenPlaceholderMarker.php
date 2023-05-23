@@ -15,6 +15,14 @@ use TYPO3\CMS\Backend\Form\AbstractNode;
 
 class SetHyphenPlaceholderMarker extends AbstractNode
 {
+    /**
+     * @return array{
+     *     iconIdentifier: string,
+     *     title: string,
+     *     linkAttributes: array<string, string>,
+     *     requireJsModules: array<string>,
+     * }
+     */
     public function render(): array
     {
         return [
