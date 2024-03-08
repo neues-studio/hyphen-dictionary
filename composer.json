@@ -22,7 +22,7 @@
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.9",
-    "typo3/testing-framework": "^6.16.8 || ^7.0 || ^8.0",
+    "typo3/testing-framework": "^6.16.8 || ^7.0",
     "saschaegerer/phpstan-typo3": "^1.8",
     "sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": "^0.1"
   },

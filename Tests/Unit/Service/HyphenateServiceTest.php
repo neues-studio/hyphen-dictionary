@@ -28,7 +28,7 @@ class HyphenateServiceTest extends UnitTestCase
         /** @var MockObject&HyphenateService $subject */
         $subject = $this->getMockBuilder(HyphenateService::class)
             ->disableOriginalConstructor()
-            ->setMethods(['getDictionaryItems'])
+            ->onlyMethods(['getDictionaryItems'])
             ->getMock();
         $subject->method('getDictionaryItems')->willReturn([]);
 
@@ -50,7 +50,7 @@ class HyphenateServiceTest extends UnitTestCase
         /** @var MockObject&HyphenateService $subject */
         $subject = $this->getMockBuilder(HyphenateService::class)
             ->disableOriginalConstructor()
-            ->setMethods(['getDictionaryItems'])
+            ->onlyMethods(['getDictionaryItems'])
             ->getMock();
         $subject->method('getDictionaryItems')->willReturn($dictionary);
 
