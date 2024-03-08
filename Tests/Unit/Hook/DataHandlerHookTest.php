@@ -23,10 +23,11 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class DataHandlerHookTest extends UnitTestCase
 {
-    /**
-     * @var bool
-     */
-    protected $resetSingletonInstances = true;
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->resetSingletonInstances = true;
+    }
 
     /**
      * @test

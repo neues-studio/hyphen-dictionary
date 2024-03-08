@@ -99,6 +99,8 @@ unit-tests:
         --coverage-clover build/reports/clover-unit.xml
   parallel:
     matrix:
+      - TYPO3_VERSION: '^12.4'
+        PHP_VERSION: [ '8.2' ]
       - TYPO3_VERSION: '^11.5'
         PHP_VERSION: [ '7.4', '8.0', '8.1', '8.2' ]
       - TYPO3_VERSION: '^10.4'
@@ -150,6 +152,8 @@ functional-tests:
         --coverage-clover build/reports/clover-functional.xml
   parallel:
     matrix:
+      - TYPO3_VERSION: '^12.4'
+        PHP_VERSION: [ '8.2' ]
       - TYPO3_VERSION: '^11.5'
         PHP_VERSION: [ '7.4', '8.0', '8.1', '8.2' ]
       - TYPO3_VERSION: '^10.4'

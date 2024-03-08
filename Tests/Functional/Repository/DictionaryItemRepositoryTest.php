@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace NeuesStudio\HyphenDictionary\Tests\Functional\Repository;
 
 use NeuesStudio\HyphenDictionary\Repository\DictionaryItemRepository;
+use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Http\Uri;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
@@ -23,15 +24,11 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 class DictionaryItemRepositoryTest extends FunctionalTestCase
 {
-    /**
-     * @var non-empty-string[]
-     */
-    protected $testExtensionsToLoad = [
-        'typo3conf/ext/hyphen_dictionary',
-    ];
-
     protected function setUp(): void
     {
+        $this->testExtensionsToLoad = [
+            'typo3conf/ext/hyphen_dictionary',
+        ];
         parent::setUp();
         $this->importDataSet(__DIR__ . '/../Fixtures/tx_hyphendictionary_item.xml');
     }
@@ -42,7 +39,8 @@ class DictionaryItemRepositoryTest extends FunctionalTestCase
         $GLOBALS['TYPO3_REQUEST'] = $serverRequest->withAttribute(
             'language',
             new SiteLanguage($languageUid, 'en', $serverRequest->getUri(), [])
-        );
+        )
+            ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_FE);
     }
 
     /**
